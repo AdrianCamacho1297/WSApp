@@ -22,7 +22,7 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     //Dirección Ip del xampp
-    val IP = "http://192.168.0.4"
+    val IP = "http://192.168.0.10"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
             cur.close()
         } // Fin del IF
         jsonParam.put("sensado", jsonArray)
-        sendRequest(IP + "/pweb/webservice/respaldaSensado.php", jsonParam)
+        sendRequest(IP + "/pweb/respaldaSensado.php", jsonParam)
     }
 
     fun sendRequest(wsURL: String, jsonEntrada: JSONObject) {

@@ -22,7 +22,7 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     //Dirección Ip del xampp
-    val IP = "http://192.168.0.10"
+    val IP = "http://192.168.0.5"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getAllSensor(v: View) {
-        val wsURL = IP + "/PWeb/WebService/getSensado.php"
+        val wsURL = IP + "/PWeb/getSensado.php"
         val admin = AdminBD(this)
         admin.Ejecuta("DELETE FROM sensado")
         val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.POST, wsURL, null,
+            Request.Method.GET, wsURL, null,
             Response.Listener { response ->
                 val succ = response["success"]
                 val msg = response["message"]
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                         "Insert into sensado(idsen,nomsensor,valor) values (${ids}, '${nom}',${valor})"
                     val res = admin.Ejecuta(sentencia)
                 }
+                Toast.makeText(this, "Se Cargargo todo a la BD", Toast.LENGTH_LONG).show();
             },
             Response.ErrorListener { error ->
                 Toast.makeText(
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             val id = etId.text.toString()
             val admin = AdminBD(this)
-            val sentencia = "delete from where idsen=$id"
+            val sentencia = "delete from sensado where idsen=$id"
             if (admin.Ejecuta(sentencia)) {
                 Toast.makeText(this, "Sensor eliminado", Toast.LENGTH_SHORT).show();
                 etId.setText("")
